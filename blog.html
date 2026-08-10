@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>日誌 | フランス王国史</title>
+<meta name="description" content="フランス王国史を学ぶ中で綴る、日付だけの記録帳">
+<meta name="robots" content="noai, noimageai">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,500&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#0b1f3a;
+    --blue:#1b3e7c;
+    --blue-light:#2c5aa0;
+    --paper:#f6f1e6;
+    --paper-dim:#ece4d3;
+    --white:#ffffff;
+    --red:#a31621;
+    --gold:#b8912f;
+    --gold-soft:#d7c07a;
+    --text:#20283a;
+    --serif-display:'Cormorant Garamond', serif;
+    --serif-body:'EB Garamond', serif;
+    --sans:'Inter', sans-serif;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--paper);
+    color:var(--text);
+    font-family:var(--serif-body);
+    line-height:1.7;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:inherit; text-decoration:none;}
+  @media (prefers-reduced-motion: reduce){
+    *{animation-duration:0.01ms !important; transition-duration:0.01ms !important; scroll-behavior:auto !important;}
+  }
+  :focus-visible{outline:2px solid var(--gold); outline-offset:3px;}
+
+  /* ---------- NAV ---------- */
+  header{
+    position:sticky; top:0; z-index:50;
+    background:var(--ink);
+    border-bottom:1px solid rgba(184,145,47,0.35);
+  }
+  .nav-wrap{
+    max-width:1180px; margin:0 auto;
+    display:flex; align-items:center; justify-content:space-between;
+    padding:16px 28px;
+  }
+  .brand{
+    display:flex; align-items:center; gap:10px;
+    font-family:var(--serif-display);
+    color:var(--white);
+    font-size:1.3rem; font-weight:600; letter-spacing:0.02em;
+  }
+  .brand .fleur{ color:var(--gold); font-size:1.2rem; }
+  nav.links{ display:flex; gap:2px; }
+  nav.links a{
+    color:var(--paper-dim);
+    font-family:var(--sans);
+    font-size:0.82rem;
+    letter-spacing:0.12em;
+    padding:10px 16px;
+    position:relative;
+    transition:color .25s ease;
+  }
+  nav.links a::after{
+    content:'';
+    position:absolute; left:16px; right:16px; bottom:6px; height:1px;
+    background:var(--gold);
+    transform:scaleX(0); transform-origin:left;
+    transition:transform .3s ease;
+  }
+  nav.links a:hover{ color:var(--white); }
+  nav.links a:hover::after{ transform:scaleX(1); }
+  nav.links a.current{ color:var(--gold-soft); }
+  nav.links a.current::after{ transform:scaleX(1); }
+
+  /* ---------- PAGE HEADER ---------- */
+  .page-head{
+    background:linear-gradient(180deg, var(--ink), var(--blue));
+    color:var(--white);
+    text-align:center;
+    padding:72px 28px 56px;
+  }
+  .page-eyebrow{
+    font-family:var(--sans); font-size:0.72rem; letter-spacing:0.3em;
+    color:var(--gold-soft); text-transform:uppercase; margin-bottom:14px;
+  }
+  .page-title{
+    font-family:var(--serif-display); font-weight:700;
+    font-size:clamp(2.2rem, 5vw, 3.2rem);
+  }
+  .page-sub{
+    font-family:var(--serif-display); font-style:italic;
+    color:var(--paper-dim); margin-top:10px; font-size:1.05rem;
+  }
+  .divider-wave{ display:block; width:100%; height:56px; margin-top:-2px; }
+
+  /* ---------- JOURNAL LIST ---------- */
+  .journal{
+    max-width:720px; margin:0 auto; padding:72px 28px 100px;
+  }
+  .entry{
+    display:grid;
+    grid-template-columns:110px 1fr;
+    gap:28px;
+    padding:34px 0;
+    border-top:1px solid rgba(11,31,58,0.15);
+    position:relative;
+  }
+  .entry:first-child{ border-top:none; }
+  .entry-date{
+    font-family:var(--serif-display); font-style:italic;
+    font-weight:600; color:var(--red);
+    font-size:1rem; line-height:1.4;
+    padding-top:2px;
+  }
+  .entry-date .year{
+    display:block; font-family:var(--sans); font-style:normal;
+    font-size:0.68rem; letter-spacing:0.1em; color:var(--blue);
+    margin-top:4px;
+  }
+  .entry-text{ font-size:1.05rem; color:#333c4d; }
+  .entry-text p + p{ margin-top:0.9em; }
+
+  @media (max-width:560px){
+    .entry{ grid-template-columns:1fr; gap:8px; }
+    .entry-date{ display:flex; align-items:baseline; gap:10px; }
+    .entry-date .year{ margin-top:0; }
+  }
+
+  .journal-end{
+    text-align:center; margin-top:48px;
+    font-family:var(--serif-display); font-style:italic;
+    color:var(--gold); font-size:1.4rem; letter-spacing:0.2em;
+  }
+
+  /* ---------- FOOTER ---------- */
+  footer{
+    background:var(--ink);
+    border-top:1px solid rgba(184,145,47,0.25);
+    padding:48px 28px 32px;
+    text-align:center;
+  }
+  .footer-motto{
+    font-family:var(--serif-display); font-style:italic;
+    color:var(--gold-soft); font-size:1.05rem; margin-bottom:18px;
+  }
+  .footer-links{
+    display:flex; justify-content:center; gap:22px; flex-wrap:wrap;
+    font-family:var(--sans); font-size:0.78rem; letter-spacing:0.08em;
+    color:var(--paper-dim); margin-bottom:22px;
+  }
+  .footer-links a:hover{ color:var(--white); }
+  .footer-note{
+    font-family:var(--sans); font-size:0.68rem; color:rgba(246,241,230,0.45);
+    line-height:1.8; max-width:640px; margin:0 auto 10px;
+  }
+  .footer-copy{
+    font-family:var(--sans); font-size:0.68rem; color:rgba(246,241,230,0.35);
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="nav-wrap">
+    <div class="brand"><span class="fleur">⚜</span> フランス王国史</div>
+    <nav class="links" aria-label="サイト内ナビゲーション">
+      <a href="index.html">トップ</a>
+      <a href="blog.html" class="current">日誌</a>
+      <a href="gallery.html">図版</a>
+      <a href="about.html">概要</a>
+    </nav>
+  </div>
+</header>
+
+<section class="page-head">
+  <p class="page-eyebrow">Journal</p>
+  <h1 class="page-title">日誌</h1>
+  <p class="page-sub">Notes du royaume, jour après jour</p>
+  <svg class="divider-wave" viewBox="0 0 1440 56" preserveAspectRatio="none" aria-hidden="true">
+    <path d="M0,28 C360,56 1080,0 1440,28 L1440,56 L0,56 Z" fill="#f6f1e6"></path>
+  </svg>
+</section>
+
+<main class="journal">
+
+  <article class="entry">
+    <div class="entry-date">2月14日<span class="year">2026</span></div>
+    <div class="entry-text">
+      <p>ここに日々の記録を綴っていきます。読んだ資料のこと、気づいたこと、ふと考えたこと——形式にとらわれず、思いついた日に思いついた分だけ。</p>
+    </div>
+  </article>
+
+  <article class="entry">
+    <div class="entry-date">2月2日<span class="year">2026</span></div>
+    <div class="entry-text">
+      <p>このサイトを作り始めた。カペー朝から始めるつもりだったけれど、資料を読んでいるとどうしてもブルボン朝の華やかさに気を取られてしまう。順番通りに進めるべきか、興味の赴くままにするか、少し迷っている。</p>
+    </div>
+  </article>
+
+  <p class="journal-end">⚜</p>
+</main>
+
+<footer>
+  <p class="footer-motto">— Chronique d'un royaume, page après page —</p>
+  <div class="footer-links">
+    <a href="index.html">トップ</a>
+    <a href="blog.html">日誌</a>
+    <a href="gallery.html">図版</a>
+    <a href="about.html">概要</a>
+  </div>
+  <p class="footer-note">本サイトはフランス王国史に関する個人の学習記録です。当サイトのコンテンツは、AI・機械学習モデルの学習データとしての使用を禁じます。<br>This site's content may not be used for AI/machine learning training purposes.</p>
+  <p class="footer-copy">© フランス王国史 Chronique du Royaume</p>
+</footer>
+
+</body>
+</html>
