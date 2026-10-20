@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>フランスの偉人辞典 | フランス王国史</title>
+<meta name="description" content="フランス王国史を彩った人物を、名前・没年・解説でまとめた辞典ページ">
+<meta name="robots" content="noai, noimageai">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,500&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#0b1f3a;
+    --blue:#87ceeb;
+    --blue-light:#a9e0f5;
+    --blue-text:#2f7ea8;
+    --paper:#f6f1e6;
+    --paper-dim:#ece4d3;
+    --white:#ffffff;
+    --red:#a31621;
+    --gold:#b8912f;
+    --gold-soft:#d7c07a;
+    --text:#20283a;
+    --serif-display:'Cormorant Garamond', serif;
+    --serif-body:'EB Garamond', serif;
+    --sans:'Inter', sans-serif;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--paper);
+    color:var(--text);
+    font-family:var(--serif-body);
+    line-height:1.7;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:inherit; text-decoration:none;}
+  @media (prefers-reduced-motion: reduce){
+    *{animation-duration:0.01ms !important; transition-duration:0.01ms !important; scroll-behavior:auto !important;}
+  }
+  :focus-visible{outline:2px solid var(--gold); outline-offset:3px;}
+
+  /* ---------- NAV ---------- */
+  header{
+    position:sticky; top:0; z-index:50;
+    background:var(--ink);
+    border-bottom:1px solid rgba(184,145,47,0.35);
+  }
+  .nav-wrap{
+    max-width:1180px; margin:0 auto;
+    display:flex; align-items:center; justify-content:space-between;
+    padding:16px 28px;
+  }
+  .brand{
+    display:flex; align-items:center; gap:10px;
+    font-family:var(--serif-display);
+    color:var(--white);
+    font-size:1.3rem; font-weight:600; letter-spacing:0.02em;
+  }
+  .brand .fleur{ color:var(--gold); font-size:1.2rem; }
+  nav.links{ display:flex; gap:2px; }
+  nav.links a{
+    color:var(--paper-dim);
+    font-family:var(--sans);
+    font-size:0.82rem;
+    letter-spacing:0.12em;
+    padding:10px 16px;
+    position:relative;
+    transition:color .25s ease;
+  }
+  nav.links a::after{
+    content:'';
+    position:absolute; left:16px; right:16px; bottom:6px; height:1px;
+    background:var(--gold);
+    transform:scaleX(0); transform-origin:left;
+    transition:transform .3s ease;
+  }
+  nav.links a:hover{ color:var(--white); }
+  nav.links a:hover::after{ transform:scaleX(1); }
+  nav.links a.current{ color:var(--gold-soft); }
+  nav.links a.current::after{ transform:scaleX(1); }
+
+  /* ---------- PAGE HEADER ---------- */
+  .page-head{
+    background:linear-gradient(180deg, var(--ink), var(--blue));
+    color:var(--white);
+    text-align:center;
+    padding:72px 28px 56px;
+  }
+  .page-eyebrow{
+    font-family:var(--sans); font-size:0.72rem; letter-spacing:0.3em;
+    color:var(--gold-soft); text-transform:uppercase; margin-bottom:14px;
+  }
+  .page-title{
+    font-family:var(--serif-display); font-weight:700;
+    font-size:clamp(2.2rem, 5vw, 3.2rem);
+  }
+  .page-sub{
+    font-family:var(--serif-display); font-style:italic;
+    color:var(--paper-dim); margin-top:10px; font-size:1.05rem;
+  }
+  .divider-wave{ display:block; width:100%; height:56px; margin-top:-2px; }
+
+  /* ---------- DICTIONARY ---------- */
+  .wrap{ max-width:980px; margin:0 auto; padding:56px 28px 100px; }
+  .dict-note{
+    font-family:var(--sans); font-size:0.74rem; letter-spacing:0.08em;
+    color:#5a6275; margin-bottom:22px;
+  }
+
+  .dict-head, .dict-row{
+    display:grid;
+    grid-template-columns:230px 110px 1fr;
+    gap:24px;
+    align-items:start;
+  }
+  .dict-head{
+    padding:12px 22px;
+    background:var(--ink);
+    color:var(--gold-soft);
+    font-family:var(--sans); font-size:0.7rem; letter-spacing:0.22em;
+    border-bottom:2px solid var(--red);
+  }
+  .dict-row{
+    background:var(--white);
+    border:1px solid rgba(11,31,58,0.1);
+    border-top:none;
+    padding:22px 22px;
+    transition:background .25s ease;
+  }
+  .dict-row:hover{ background:rgba(135,206,235,0.12); }
+
+  .dict-name{
+    font-family:var(--serif-display); font-weight:700;
+    font-size:1.35rem; line-height:1.35; color:var(--ink);
+    position:relative; padding-left:22px;
+  }
+  .dict-name::before{
+    content:'⚜'; position:absolute; left:0; top:0;
+    font-size:0.95rem; color:var(--gold);
+  }
+  .dict-year{
+    font-family:var(--serif-display); font-style:italic; font-weight:600;
+    font-size:1.25rem; color:var(--red); line-height:1.5;
+  }
+  .dict-year small{
+    font-family:var(--sans); font-style:normal; font-size:0.62rem;
+    letter-spacing:0.18em; color:var(--blue-text); display:block;
+  }
+  .dict-desc{ font-size:1.02rem; color:#333c4d; }
+
+  @media (max-width:720px){
+    .dict-head{ display:none; }
+    .dict-row{
+      grid-template-columns:1fr auto;
+      gap:6px 14px;
+      padding:20px 18px;
+      border-top:1px solid rgba(11,31,58,0.1);
+      margin-bottom:12px;
+    }
+    .dict-name{ grid-column:1; }
+    .dict-year{ grid-column:2; text-align:right; }
+    .dict-desc{ grid-column:1 / -1; margin-top:4px; }
+  }
+
+  .back-wrap{ margin-top:44px; }
+  .back-link{
+    display:inline-flex; align-items:center; gap:6px;
+    font-family:var(--sans); font-size:0.78rem; letter-spacing:0.1em;
+    color:var(--ink); padding:10px 18px;
+    border:1px solid rgba(11,31,58,0.3);
+    transition:all .25s ease;
+  }
+  .back-link:hover{ background:var(--ink); color:var(--white); border-color:var(--ink); }
+
+  /* ---------- FOOTER ---------- */
+  footer{
+    background:var(--ink);
+    border-top:1px solid rgba(184,145,47,0.25);
+    padding:48px 28px 32px;
+    text-align:center;
+  }
+  .footer-motto{
+    font-family:var(--serif-display); font-style:italic;
+    color:var(--gold-soft); font-size:1.05rem; margin-bottom:18px;
+  }
+  .footer-links{
+    display:flex; justify-content:center; gap:22px; flex-wrap:wrap;
+    font-family:var(--sans); font-size:0.78rem; letter-spacing:0.08em;
+    color:var(--paper-dim); margin-bottom:22px;
+  }
+  .footer-links a:hover{ color:var(--white); }
+  .footer-note{
+    font-family:var(--sans); font-size:0.68rem; color:rgba(246,241,230,0.45);
+    line-height:1.8; max-width:640px; margin:0 auto 10px;
+  }
+  .footer-copy{
+    font-family:var(--sans); font-size:0.68rem; color:rgba(246,241,230,0.35);
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="nav-wrap">
+    <div class="brand"><span class="fleur">⚜</span> フランス王国史</div>
+    <nav class="links" aria-label="サイト内ナビゲーション">
+      <a href="index.html">トップ</a>
+      <a href="blog.html">日誌</a>
+      <a href="gallery.html" class="current">図版</a>
+      <a href="about.html">概要</a>
+    </nav>
+  </div>
+</header>
+
+<section class="page-head">
+  <p class="page-eyebrow">Dictionnaire des personnages illustres</p>
+  <h1 class="page-title">フランスの偉人辞典</h1>
+  <p class="page-sub">王国の歴史を彩った人びと</p>
+  <svg class="divider-wave" viewBox="0 0 1440 56" preserveAspectRatio="none" aria-hidden="true">
+    <path d="M0,28 C360,56 1080,0 1440,28 L1440,56 L0,56 Z" fill="#f6f1e6"></path>
+  </svg>
+</section>
+
+<main class="wrap">
+  <p class="dict-note">全16項目 ／ 没年の早い順に掲載</p>
+
+  <div class="dict-head" aria-hidden="true">
+    <span>偉人名</span>
+    <span>没年</span>
+    <span>解説</span>
+  </div>
+
+  <div class="dict-row">
+    <h2 class="dict-name">ユーグ・カペー</h2>
+    <p class="dict-year"><small>没</small>996年</p>
+    <p class="dict-desc">987年に諸侯に推されて西フランク王となり、カペー朝を開いた。のちのヴァロワ朝・ブルボン朝もカペー家の分家で、フランス王国の長い歴史の出発点にあたる人物。</p>
+  </div>
+
+  <div class="dict-row">
+    <h2 class="dict-name">フィリップ2世（尊厳王）</h2>
+    <p class="dict-year"><small>没</small>1223年</p>
+    <p class="dict-desc">イングランド王ジョンからノルマンディーなど大陸の領地の多くを奪い、1214年のブーヴィーヌの戦いにも勝利して、王権を大きく伸ばした。</p>
+  </div>
+
+  <div class="dict-row">
+    <h2 class="dict-name">ルイ9世（聖王ルイ）</h2>
+    <p class="dict-year"><small>没</small>1270年</p>
+    <p class="dict-desc">裁判制度を整えるなど内政に力を注ぎ、十字軍にも二度出陣した。二度目の遠征先チュニスで病没し、のちに聖人に列せられた。</p>
+  </div>
+
+  <div class="dict-row">
+    <h2 class="dict-name">フィリップ4世（端麗王）</h2>
+    <p class="dict-year"><small>没</small>1314年</p>
+    <p class="dict-desc">三部会を召集して国内の支持を固め、教皇ボニファティウス8世と激しく対立した（アナーニ事件）。教皇庁がアヴィニョンに移る流れも、この王の時代に生まれた。</p>
+  </div>
+
+  <div class="dict-row">
+    <h2 class="dict-name">ジャンヌ・ダルク</h2>
+    <p class="dict-year"><small>没</small>1431年</p>
+    <p class="dict-desc">百年戦争の終盤、神の声を聞いたとして王太子シャルルのもとへ赴き、1429年にオルレアンの包囲を解いた。のちに捕らえられ、1431年にルーアンで火刑に処された。</p>
+  </div>
+
+  <div class="dict-row">
+    <h2 class="dict-name">シャルル7世</h2>
+    <p class="dict-year"><small>没</small>1461年</p>
+    <p class="dict-desc">ジャンヌ・ダルクの活躍もあってランスで戴冠し、1453年に百年戦争を事実上の勝利で終わらせた。常備軍の整備など、王権の立て直しも進めた。</p>
+  </div>
+
+  <div class="dict-row">
+    <h2 class="dict-name">フランソワ1世</h2>
+    <p class="dict-year"><small>没</small>1547年</p>
+    <p class="dict-desc">ルネサンス期の王。イタリアから芸術家を招き、レオナルド・ダ・ヴィンチも晩年をフランスで過ごした。神聖ローマ皇帝カール5世とは長く争い続けた。</p>
+  </div>
+
+  <div class="dict-row">
+    <h2 class="dict-name">カトリーヌ・ド・メディシス</h2>
+    <p class="dict-year"><small>没</small>1589年</p>
+    <p class="dict-desc">アンリ2世の王妃。夫の死後、幼い息子たちの時代に政治の中心に立ち、宗教戦争のなかで調停に努めた。1572年のサン・バルテルミの虐殺への関与も論じられている。</p>
+  </div>
+
+  <div class="dict-row">
+    <h2 class="dict-name">アンリ4世</h2>
+    <p class="dict-year"><small>没</small>1610年</p>
+    <p class="dict-desc">ブルボン朝の初代国王。自らカトリックに改宗して国をまとめ、1598年のナントの勅令でユグノーに信仰の自由を一定認めた。1610年に暗殺された。</p>
+  </div>
+
+  <div class="dict-row">
+    <h2 class="dict-name">リシュリュー</h2>
+    <p class="dict-year"><small>没</small>1642年</p>
+    <p class="dict-desc">ルイ13世に仕えた宰相・枢機卿。貴族の力を抑えて王権を強め、アカデミー・フランセーズを創設した。外交では三十年戦争に介入した。</p>
+  </div>
+
+  <div class="dict-row">
+    <h2 class="dict-name">コルベール</h2>
+    <p class="dict-year"><small>没</small>1683年</p>
+    <p class="dict-desc">ルイ14世の財務総監。重商主義の政策で国内の産業や貿易を育て、王国の財政の立て直しを図った。</p>
+  </div>
+
+  <div class="dict-row">
+    <h2 class="dict-name">ルイ14世（太陽王）</h2>
+    <p class="dict-year"><small>没</small>1715年</p>
+    <p class="dict-desc">72年にわたって在位し、ヴェルサイユ宮殿を築いて絶対王政の象徴となった。一方で度重なる戦争により、晩年の王国は財政の苦しさを抱えた。</p>
+  </div>
+
+  <div class="dict-row">
+    <h2 class="dict-name">ヴォルテール</h2>
+    <p class="dict-year"><small>没</small>1778年</p>
+    <p class="dict-desc">18世紀を代表する啓蒙思想家。宗教的な不寛容や専制を批判し、その著作は王国の外にも広く読まれた。</p>
+  </div>
+
+  <div class="dict-row">
+    <h2 class="dict-name">ジャン＝ジャック・ルソー</h2>
+    <p class="dict-year"><small>没</small>1778年</p>
+    <p class="dict-desc">『社会契約論』で人民主権の考え方を示した思想家。その思想は、のちのフランス革命に大きな影響を与えたとされる。</p>
+  </div>
+
+  <div class="dict-row">
+    <h2 class="dict-name">ルイ16世</h2>
+    <p class="dict-year"><small>没</small>1793年</p>
+    <p class="dict-desc">革命期の国王。財政難のなか三部会を召集したことが革命の発端となった。1792年に王政が廃止され、翌1793年1月に処刑された。</p>
+  </div>
+
+  <div class="dict-row">
+    <h2 class="dict-name">マリー・アントワネット</h2>
+    <p class="dict-year"><small>没</small>1793年</p>
+    <p class="dict-desc">オーストリア出身のルイ16世の王妃。革命のなかで王家とともに追いつめられ、1793年10月に処刑された。</p>
+  </div>
+
+  <div class="back-wrap">
+    <a class="back-link" href="gallery.html">← 図版に戻る</a>
+  </div>
+</main>
+
+<footer>
+  <p class="footer-motto">— Chronique d'un royaume, page après page —</p>
+  <div class="footer-links">
+    <a href="index.html">トップ</a>
+    <a href="blog.html">日誌</a>
+    <a href="gallery.html">図版</a>
+    <a href="about.html">概要</a>
+  </div>
+  <p class="footer-note">当サイトに掲載されている画像・文章・作品について、AI学習への利用、トレース（トレパク）、無断転載・転載、二次利用を禁止します。スクリーンショットの転載・無断引用はご遠慮ください。</p>
+  <p class="footer-note">Please refrain from using any images, text, or works on this website for AI training, tracing, unauthorized reproduction, redistribution, or secondary use.</p>
+  <p class="footer-copy">© フランス王国史 Chronique du Royaume</p>
+</footer>
+
+</body>
+</html>
